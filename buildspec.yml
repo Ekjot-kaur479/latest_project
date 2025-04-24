@@ -3,13 +3,12 @@ version: 0.2
 phases:
   build:
     commands:
-      - echo "Building HTML website"
-      - sudo apt update -y
-      - sudo rm -rf /var/www/html/*
-      - sudo cp -r * /var/www/html/
-      - sudo systemctl restart apache2
-
-artifacts:
-  files:
-    - '**/*'
+      - echo "Deploying to EC2..."
+      - aws s3 cp index.html s3://ekjot-website-source/index.html
+      - aws ssm send-command \
+          --document-name "AWS-RunShellScript" \
+          --targets '[{"Key":"InstanceIds","Values":["i-0a75e7c7091f8b384"]}]' \
+          --parameters '{"commands":["sudo aws s3 cp s3://ekjot-website-source/index.html /var/www/html/index.html"]}' \
+          --comment "Deploy website" \
+          --region us-east-1
 
