@@ -1,0 +1,15 @@
+version: 0.2
+
+phases:
+  build:
+    commands:
+      - echo "Building HTML website"
+      - sudo apt update -y
+      - sudo rm -rf /var/www/html/*
+      - sudo cp -r * /var/www/html/
+      - sudo systemctl restart apache2
+
+artifacts:
+  files:
+    - '**/*'
+
