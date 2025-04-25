@@ -1,12 +1,10 @@
 version: 0.2
 
 phases:
-  install:
-    runtime-versions:
-      runtime: null
   build:
     commands:
       - echo "Nothing to build for HTML site."
+
 artifacts:
   files:
     - '**/*'
