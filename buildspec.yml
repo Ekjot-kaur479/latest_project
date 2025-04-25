@@ -1,14 +1,18 @@
 version: 0.2
 
 phases:
+  install:
+    runtime-versions:
+      nodejs: 14
+    commands:
+      - echo Nothing to install for HTML site
   build:
     commands:
-      - echo "Deploying to EC2..."
-      - aws s3 cp index.html s3://ekjot-website-source/index.html
-      - aws ssm send-command \
-          --document-name "AWS-RunShellScript" \
-          --targets '[{"Key":"InstanceIds","Values":["i-0a75e7c7091f8b384"]}]' \
-          --parameters '{"commands":["sudo aws s3 cp s3://ekjot-website-source/index.html /var/www/html/index.html"]}' \
-          --comment "Deploy website" \
-          --region us-east-1
+      - echo Build step for HTML - copying files
+  post_build:
+    commands:
+      - echo Build completed on `date`
+artifacts:
+  files:
+    - '**/*'
 
