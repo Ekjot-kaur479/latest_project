@@ -3,15 +3,10 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      nodejs: 14
-    commands:
-      - echo Nothing to install for HTML site
+      runtime: null
   build:
     commands:
-      - echo Build step for HTML - copying files
-  post_build:
-    commands:
-      - echo Build completed on `date`
+      - echo "Nothing to build for HTML site."
 artifacts:
   files:
     - '**/*'
